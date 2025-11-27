@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Notebook</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffd6ea, #cbe7ff);
+      overflow: hidden;
+    }
+    .notebook {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .page {
+      width: 90%;
+      max-width: 420px;
+      height: 85vh;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(40px);
+    }
+    .page.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .navBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: #ff7fa8;
+      cursor: pointer;
+      user-select: none;
+    }
+    #prev {
+      left: 10px;
+    }
+    #next {
+      right: 10px;
+    }
+    .img-placeholder {
+      width: 100%;
+      height: 250px;
+      background: #eee;
+      border-radius: 15px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 14px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgm" src="music.mp3" autoplay loop></audio>
+
+  <div class="notebook">
+    <div id="prev" class="navBtn">❮</div>
+    <div id="next" class="navBtn">❯</div>
+
+    <!-- 25 Pages Placeholder -->
+    <div class="page active">Page 1 — Content goes here</div>
+    <div class="page">Page 2 — Content goes here</div>
+    <div class="page">Page 3 — Content goes here</div>
+    <div class="page">Page 4 — Content goes here</div>
+    <div class="page">Page 5 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 6 — Content goes here</div>
+    <div class="page">Page 7 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 8 — Content goes here</div>
+    <div class="page">Page 9 — Content goes here</div>
+    <div class="page">Page 10 — Content goes here</div>
+    <div class="page">Page 11 — Content goes here</div>
+    <div class="page">Page 12 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 13 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 14 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 15 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 16 — Content goes here</div>
+    <div class="page">Page 17 — Content goes here</div>
+    <div class="page">Page 18 — Content goes here</div>
+    <div class="page">Page 19 — Content goes here</div>
+    <div class="page">Page 20 — Content goes here</div>
+    <div class="page">Page 21 — Content goes here</div>
+    <div class="page">Page 22 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 23 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 24 — <div class="img-placeholder">Insert Photo</div></div>
+    <div class="page">Page 25 — <div class="img-placeholder">Insert Photo</div></div>
+  </div>
+
+  <script>
+    let pages = document.querySelectorAll('.page');
+    let i = 0;
+
+    document.getElementById('next').onclick = () => move(1);
+    document.getElementById('prev').onclick = () => move(-1);
+
+    function move(dir) {
+      pages[i].classList.remove('active');
+      i = (i + dir + pages.length) % pages.length;
+      pages[i].classList.add('active');
+    }
+
+    // Confetti
+    function throwConfetti() {
+      for (let i = 0; i < 40; i++) {
+        const conf = document.createElement('div');
+        conf.style.position = 'absolute';
+        conf.style.top = '-10px';
+        conf.style.left = Math.random() * window.innerWidth + 'px';
+        conf.style.width = '8px';
+        conf.style.height = '8px';
+        conf.style.background = ['#ff9bbd','#ffcad4','#b7e9ff','#c4b5fd'][Math.floor(Math.random()*4)];
+        conf.style.opacity = '0.9';
+        conf.style.borderRadius = '2px';
+        conf.style.transform = `rotate(${Math.random()*360}deg)`;
+        conf.style.animation = 'fall 2.5s linear forwards';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 3000);
+      }
+    }
+    throwConfetti();
+  </script>
+
+  <style>
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+  </style>
+</body>
+</html>
